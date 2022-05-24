@@ -73,6 +73,10 @@ public class Processor implements Runnable {
 		return outgoingLinks;
 	}
 
+	public Stream<CommunicationLink> incomingLinks() {
+		return incomingLinks.stream();
+	}
+
 	public Collection<CommunicationLink> getIncomingLinks() {
 		return incomingLinks;
 	}

@@ -25,6 +25,8 @@ public class CommunicationLink implements Runnable {
 	private Message<?> readyForDelivery;
 	
 	public CommunicationLink(Processor from, Processor to) {
+		assert(from != null);
+		assert(to != null);
 		this.from = from;
 		this.to = to;
 		from.addOutgoingLink(this);
@@ -75,8 +77,8 @@ public class CommunicationLink implements Runnable {
 				if (readyForDelivery != null) {
 					Utils.blockingWait(this); // Wait for the recipient to collect the message
 				}
-				readyForDelivery = pendingMessages.take();
 				Thread.sleep(randomDelay());
+				readyForDelivery = pendingMessages.take();
 				synchronized (to) {
 					to.notify();					
 				}
