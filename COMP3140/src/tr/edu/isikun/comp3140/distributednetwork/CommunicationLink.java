@@ -19,6 +19,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class CommunicationLink implements Runnable {
 	public static final int MIN_DELAY_MILLIS = 10;
 	public static final int MAX_DELAY_MILLIS = 100;
+	private static long sentMessages = 0;
 	private Processor from;
 	private Processor to;
 	private BlockingQueue<Message<?>> pendingMessages = new LinkedBlockingQueue<>();
@@ -56,6 +57,7 @@ public class CommunicationLink implements Runnable {
 		assert(msg.getDestination() == to);
 		// Simply append the message to the queue
 		pendingMessages.add(msg);
+		sentMessages++;
 	}
 	
 	/**
@@ -90,6 +92,10 @@ public class CommunicationLink implements Runnable {
 
 	private static int randomDelay() {
 		return (int) ((MAX_DELAY_MILLIS-MIN_DELAY_MILLIS)*Math.random() + MIN_DELAY_MILLIS);
+	}
+	
+	public static void printStatistics() {
+		System.out.println("NUMBER OF MESSAGES SENT: " + sentMessages);
 	}
 	
 }
