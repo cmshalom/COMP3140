@@ -1,7 +1,5 @@
 package tr.edu.isikun.comp3140.week05;
 
-import java.util.concurrent.TimeUnit;
-
 public class Account {
 	private long balance = 0;
 	
